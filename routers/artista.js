@@ -51,4 +51,26 @@ router.get('/', (req, res, next) => {
    })
 })
 
+router.post("/cadastro",(req,res,next) => {
+  mysql.getConnection((error,conn) =>{
+    if (error) {
+      return res.status(500).send({ erro: error })
+     }
+    if (req.body.nome === ""){
+      return res.status(404).send({erro: 'Informar o nome do Artista'})
+     }  
+    conn.query("INSERT INTO artista(nome) VALUES(?)",
+    [req.body.nome],
+    (error,result,field)=>{
+      if(error){
+        return res.status(500).send({erro: error})
+      }
+      res.status(201).send({message:"Sucesso na inclusão",
+      id_artista: result.insertId,
+      nome:       req.body.nome,
+     })
+   })
+  })
+})
+
 module.exports = router;
