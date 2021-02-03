@@ -2,20 +2,33 @@ const express = require('express')
 const mysql   = require("../mysql.config").pool
 const router  = express.Router()
 const bcrypt  = require("bcrypt")
+ const jwt    = require("jsonwebtoken")
 
 router.post('/login', (req, res, next) => {
   if (req.body.email === "" || req.body.senha === ""){
       return res.status(404).send({erro: 'Informar email e Senha'})
     }
      mysql.getConnection((error, conn) => {
-       conn.query("SELECT email, senha from usuario WHERE (email = ?) and (senha = ?)",
-        [req.body.email, req.body.senha],
-        (error,result,fields) => {
+       conn.query("SELECT email, senha from usuario WHERE (email = ?)",
+        [req.body.email],
+        (error,results,fields) => {
          conn.release()
-         if(result.length < 1){
+         if(results.length < 1){
           return res.status(401).send({message:"Falha de Autenticação"})
          }
-          res.status(200).send({message:"Autenticado com sucesso"})
+         bcrypt.compare(req.body.senha, results[0].senha, (error,result) => {
+            if(result){
+             const token = jwt.sign({id_usuario:results[0].id_usuario, 
+                email:results[0].email}, "ricardo2021",
+                {
+                    expiresIn: '1h'
+                })
+                res.status(200).send({message:"Usuário Autenticado",
+                 email:req.body.email, token: token})
+            }else{
+                res.status(401).send({message:"Falha na Autenticação"})
+            }           
+         })
        })
      })
   })
