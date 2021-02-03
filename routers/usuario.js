@@ -1,6 +1,7 @@
 const express = require('express')
 const mysql   = require("../mysql.config").pool
 const router  = express.Router()
+const bcrypt  = require("bcrypt")
 
 router.post('/login', (req, res, next) => {
   if (req.body.email === "" || req.body.senha === ""){
@@ -24,8 +25,9 @@ router.post('/', (req, res, next) => {
         return res.status(404).send({erro: 'Informar email e Senha'})
      }
      mysql.getConnection((error, conn) => {
+        bcrypt.hash(req.body.senha, 10,(errBcrypt, hash)=>{
         conn.query("INSERT INTO usuario(email,senha) VALUES(?,?)",
-        [req.body.email, req.body.senha],
+        [req.body.email, hash],
         (error,result,field) => {
             conn.release()
             if (error) {
@@ -34,7 +36,8 @@ router.post('/', (req, res, next) => {
             res.status(201).send({message:"Usuário cadastrado com sucesso !",
             id_usuario: result.insertId, email: req.body.email})   
         })
-    })
+      })
+   })
 })
 
 module.exports = router;
