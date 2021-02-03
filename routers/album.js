@@ -1,14 +1,27 @@
-const express = require("express")
-const router  = express.Router()
-const mysql   = require("../mysql.config").pool
+const express  = require("express")
+const router   = express.Router()
+const mysql    = require("../mysql.config").pool
+const multer   = require("multer")
+var nameFile = ""
 
-router.post("/",(req,res,next) => {
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+     cb(null,'uploads/')
+  },
+  filename: (req, file, cb) => {
+    cb(null, nameFile=Date.now()+'-'+file.originalname)
+  
+  } 
+})
+const upload = multer({storage})
+
+router.post("/", upload.single('capa'), (req,res,next) => {
     mysql.getConnection((error,conn) => {
         if (error){
           return  res.status(500).send({erro : error})
         }
     conn.query("INSERT INTO album(fk_artista,nomeAlbum,capa) VALUES(?,?,?)",
-    [req.body.id_artista, req.body.nomeAlbum, req.body.capa],  
+    [req.body.fk_artista, req.body.nomeAlbum, nameFile],  
     (error,result,field) =>{
         if (error){
            return res.status(500).send({erro : error})
