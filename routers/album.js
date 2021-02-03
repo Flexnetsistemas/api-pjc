@@ -2,6 +2,7 @@ const express  = require("express")
 const router   = express.Router()
 const mysql    = require("../mysql.config").pool
 const multer   = require("multer")
+const minioClient = require("../minio.config")
 var nameFile = ""
 
 const storage = multer.diskStorage({
@@ -9,13 +10,13 @@ const storage = multer.diskStorage({
      cb(null,'uploads/')
   },
   filename: (req, file, cb) => {
-    cb(null, nameFile=Date.now()+'-'+file.originalname)
-  
+    cb(null, nameFile=Date.now()+'-'+file.originalname)  
   } 
 })
 const upload = multer({storage})
 
 router.post("/", upload.single('capa'), (req,res,next) => {
+    uploadMinio('uploads/'+nameFile)
     mysql.getConnection((error,conn) => {
         if (error){
           return  res.status(500).send({erro : error})
@@ -30,7 +31,7 @@ router.post("/", upload.single('capa'), (req,res,next) => {
         id_artista: req.body.id_artista,
         id_album : result.insertId,
         nomeAlbum: req.body.nomeAlbum
-      })
+    })
   })
  })
 })
@@ -52,5 +53,16 @@ router.put("/",(req,res,next) => {
   })
 })
 
+function uploadMinio(file){
+    var metaData = {
+        'Content-Type': 'application/octet-stream',
+        'X-Amz-Meta-Testing': 1234,
+        'example': 5678
+    }
+   minioClient.fPutObject('zx-bucket', nameFile, file, metaData, function(err, etag) {
+      if (err) return err
+      console.log('Upload do Arquivo realizado com sucesso.')      
+    })
+}
 
 module.exports = router;
