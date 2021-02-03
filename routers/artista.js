@@ -1,5 +1,4 @@
 const express = require("express")
-const {use}   = require("../app")
 const router  = express.Router()
 const mysql   = require("../mysql.config").pool
 
@@ -52,7 +51,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.post("/cadastro",(req,res,next) => {
-  mysql.getConnection((error,conn) =>{
+  mysql.getConnection((error,conn) => {
     if (error) {
       return res.status(500).send({ erro: error })
      }
@@ -70,6 +69,23 @@ router.post("/cadastro",(req,res,next) => {
       nome:       req.body.nome,
      })
    })
+  })
+})
+
+router.put("/",(req,res,next) => {
+  mysql.getConnection((error,conn) => {
+    if (error){
+     return res.status(500).send({erro: error})
+    }
+    conn.query("UPDATE artista SET nome = ? WHERE id_artista = ? ",
+    [req.body.nome, req.body.id_artista],
+    (error, result, field) => {
+      if (error){
+      return res.status(500).send({erro: error})
+      }    
+     res.status(200).send({message: "Alterado com sucesso."})
+    }
+    )
   })
 })
 
