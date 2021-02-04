@@ -1,28 +1,28 @@
 # Processo seletivo n. 01/2020 PJC/MT
-# PROJETO PRÁTICO
-# IMPLEMENTAÇÃO BACK END
+# Projeto Prático
+# Implementação BACK-END
 
-[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
+
 
 # Procedimento para teste do projeto.
-- Os teste poderão ser realizado utilizando os programas de comunicação REST Postman ou Insominia, ou qualquer sistema semanhante.
+- Os teste poderão ser realizados utilizando os programas de comunicação REST Postman ou Insominia, ou qualquer sistema semenhante.
 
 # 1º Passo
 - Fazer o login para receber o token
-Exemplo
+Exemplo:
 ```sh
 POST: localhost:3000/api/v1/usuario/login
 {
  "email" : "rdassis@gmail.com",  
-	"senha" : "123456"
+  "senha" : "123456"
 }
 ````
 # 2º Passo
 - De posse do token com expiração em 5 minutos fazer os testes descrito abaixo:
 
-# ::CADASTRO DE USUARIO
+# -CADASTRO DE USUARIO
 ```sh
-POST:   localhost:3000/api/v1/usuario
+POST: localhost:3000/api/v1/usuario
 {
 	"email": "seu-emailfm@gmail.com",
 	"senha": "123456"	
@@ -32,14 +32,13 @@ POST:   localhost:3000/api/v1/usuario
 ```sh
 POST: localhost:3000/api/v1/artista/cadastro
 {
-	"nome": "NICO E LAU",
-	"nomeAlbum": "Dança do siriri",
-	"capa": ""
+	"nome": "Leonardo"
+
 }
 ```
 # ::CADASTRO DE ALBUM / multpart-form
 ```sh
-post: localhost:3000/api/v1/album
+POST: localhost:3000/api/v1/album
 {
 	"id_artista": 9,
 	"nomeAlbum": "Love Goes",
@@ -48,7 +47,7 @@ post: localhost:3000/api/v1/album
 ```
 # ::ALTERAÇÃO DO NOME ARTISTA
 ```sh
-put : localhost:3000/api/v1/artista
+PUT : localhost:3000/api/v1/artista
 {
 	"id_artista": 9,
 	"nome": "Madona"
@@ -56,11 +55,11 @@ put : localhost:3000/api/v1/artista
 ````
 # ::ALTERAÇÃO DE ALBUM
 ```sh
-put: localhost:3000/api/v1/album
+PUT: localhost:3000/api/v1/album
 {
         "id_album" : 4,  
 	"fk_artista": 6,
-	"nomeAlbum": "Dance Dance"
+	"nomeAlbum": "Dance and Dance"
 }
 ````
 
