@@ -15,7 +15,8 @@ POST: localhost:3000/api/v1/usuario/login
   "senha" : "123456"
 }
 ````
-- Também poderá ser cadastrado um novo usuário, usando a URI abaixo, para posterior login (Passo 1º) e retorno do token
+- Também poderá ser cadastrado um novo usuário, usando a URI abaixo, para posterior login (Passo 1º) e retorno do token.
+
 Cadastro de Usuário:
 ```sh
 POST: localhost:3000/api/v1/usuario
