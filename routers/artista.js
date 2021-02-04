@@ -1,14 +1,17 @@
 const express = require("express")
 const router  = express.Router()
 const mysql   = require("../mysql.config").pool
+const minioClient      = require("../minio")
+const { presignedUrl } = require('../minio');
 
 router.get('/', (req, res, next) => {
+
   mysql.getConnection((error, conn) => {
   if (error) {
     return res.status(500).send({ erro: error })
     }
      let order   = ''
-     let artista  = (!req.query.artista) ? "%" : req.query.artista
+     let artista  = (!req.query.artista) ? "%" : req.query.artista+"%"
 /*        if (req.query.limit || req.query.skip){
         let artista  = (!req.query.skip) ? 0 : req.query.skip
         limit = (!req.query.limit) ? 10 : req.query.limit
@@ -32,23 +35,42 @@ router.get('/', (req, res, next) => {
          //       result.fectAll
         //        rowsTotal   = resultado.map(q=>q.qtde)[0]-1;
       //          qdePages   =  1 //Math.trunc(rowsTotal / resultado.length);
-       let img =  result.map(image => image.capa)   
-       const artistas = result.map(art => {
+       let img =  result.map(image => image.capa)  
+       let imgLink = ''; 
+   
+       return new Promise((resolve, reject) => {
+         getimageURL(img, (err, data) => {
+         if (err) {  
+            reject(respondClient(""))
+          }else{
+            resolve(respondClient(data))
+          }
+          })
+        })  
+              
+         function respondClient(data){
+           imgLink = data
+           console.log("respondeu ao ocliente")
+         const artistas = result.map(art => {
          return {
              id_artista: art.id_artista,  
-             nome      : art.nome
+             nome      : art.nome,
+             album     : art.nomeAlbum,
+             capa_link : imgLink
              }
             })
-       const  albuns =  result.map(art => {
+/*        const  albuns =  result.map(art => {
          return {
             album     : art.nomeAlbum,
-            capa      : art.capa
+            capa_link : imgLink
             }
-           })
-      res.status(200).send({ Artista: artistas, Albuns: albuns  })
-     })  
-   })
-})
+           }) */
+           res.status(200).send({ Artista: artistas })
+          }
+        })
+   
+     })
+ })
 
 router.post("/cadastro",(req,res,next) => {
   mysql.getConnection((error,conn) => {
@@ -88,5 +110,21 @@ router.put("/",(req,res,next) => {
     )
   })
 })
+
+
+async function getimageURL(image,callback)
+{
+
+  try {
+    await minioClient.presignedUrl('GET','zx-bucket', image, 300)
+    callback()
+  } catch (error) {
+    console.log(error)
+    callback(error)
+    
+  }   
+
+}
+
 
 module.exports = router;
