@@ -2,10 +2,8 @@
 # Projeto Prático
 # Implementação BACK-END
 
-
-
-# Procedimento para teste do projeto.
-- Os teste poderão ser realizados utilizando os programas de comunicação REST Postman ou Insominia, ou qualquer sistema semenhante.
+# Procedimento para testes do projeto.
+- Os testes poderão ser realizados utilizando os programas de comunicação REST Postman ou Insominia, ou qualquer sistema semenhante.
 
 # 1º Passo
 - Fazer o login para receber o token
@@ -64,10 +62,3 @@ PUT: localhost:3000/api/v1/album
 	"nomeAlbum": "Dance and Dance"
 }
 ````
-
-
-
-
-
-
-
