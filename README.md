@@ -17,10 +17,8 @@ POST: localhost:3000/api/v1/usuario/login
   "senha" : "123456"
 }
 ````
-# 2º Passo
-- De posse do token com expiração em 5 minutos fazer os testes descrito abaixo:
-
-# -CADASTRO DE USUARIO
+- Também poderá ser cadastrado um novo usuário, usando a URI abaixo, para posterior login (Passo 1º) e retorno do token
+Cadastro de Usuário:
 ```sh
 POST: localhost:3000/api/v1/usuario
 {
@@ -28,6 +26,10 @@ POST: localhost:3000/api/v1/usuario
 	"senha": "123456"	
 }
 ```
+
+# 2º Passo
+- De posse do token com expiração em 5 minutos fazer os testes descrito abaixo:
+
 # ::CADASTRO DE ARTISTA
 ```sh
 POST: localhost:3000/api/v1/artista/cadastro
