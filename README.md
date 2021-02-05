@@ -28,6 +28,9 @@
   
 ### Docker
 - Infelizmente de última hora não consegui executar o Docker no windwos 10 home, pois o mesmo não habilita os processo de Hyper-V para esta versão, sendo assim, não consegui gerar o projeto "dockerizado"
+
+### Execução
+- No diretório do projeto digite /> npm start ou />node server.js
   
 
 ### 1º Passo
