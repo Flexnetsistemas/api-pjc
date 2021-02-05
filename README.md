@@ -63,7 +63,7 @@ GET : localhost:3000/api/v1/artista/
 ```sh
 POST: localhost:3000/api/v1/album
 {
-	"fk_artista": 9,
+	"fk_artista": 2,
 	"nomeAlbum": "Love Goes",
 	"capa" : (choose file)
 }
@@ -72,7 +72,7 @@ POST: localhost:3000/api/v1/album
 ```sh
 PUT : localhost:3000/api/v1/artista
 {
-	"id_artista": 9,
+	"id_artista": 3,
 	"nome": "Madona"
 }
 ````
@@ -80,8 +80,8 @@ PUT : localhost:3000/api/v1/artista
 ```sh
 PUT: localhost:3000/api/v1/album
 {
-    "id_album" : 4,  
-    "fk_artista": 6,
+    "id_album" : 3,  
+    "fk_artista": 2,
     "nomeAlbum": "Dance and Dance"
 	}
 ````
@@ -129,5 +129,5 @@ GET: localhost:3000/api/v1/album/?album=Sertanejo&&limit=3&skip=0&order=asc
 - Database: albumdb
 - Tabela: usuario
 - Tabela: artista 1->N album
-- Carga inicial da base de dados clique aqui
+- Carga inicial da base de dados em https://github.com/Flexnetsistemas/api-pjc/tree/master/script
 
