@@ -7,6 +7,21 @@
 - Os testes poderão ser realizados utilizando os programas de comunicação REST Postman, Insominia ou qualquer sistema equivalente.
 - No teste de POST e PUT usar Content-Type : application/json no Header.
 
+## Pré Requisitos
+- Node.js
+#### Dependências:
+"dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "minio": "^7.0.18",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1"
+  }
+  - MySql ou mariaDB
+
 ## 1º Passo
 - Fazer o login para receber o token, expira em 5 minutos. 
 Exemplo:
@@ -78,13 +93,20 @@ GET : localhost:3000/api/v1/artista/?artista=Guns
 GET : localhost:3000/api/v1/album/?album=use your
 ````
 ## ::ORDENAÇÃO
-- A ordenação do álbum consulta pode ser combinada com a querystring ORDER, com asc ou desc. Veja exemplos abaixo:
+- A ordenação dos artistas pode ser combinada com a querystring ORDER, com asc ou desc. Veja exemplos abaixo:
 ```sh
-GET : localhost:3000/api/v1/artista/?artista=Mike&order=desc
-GET : localhost:3000/api/v1/artista/?artista=Mike&order=asc
+GET : localhost:3000/api/v1/artista/?artista=mi&order=asc
+````
+- Através da consulta de álbum e feito a ordenação usando a querystring ORDER, com asc ou desc. Veja exemplos abaixo:
+````
+GET: localhost:3000/api/v1/album/?album=Sertanejo&order=desc
 ````
 ## ::PAGINAÇÃO
-- Utilize os parâmetros limit (para limitar a quantidade) e skip (para pular registros).
+- Utilize os parâmetros LIMIT (para limitar a quantidade) e SKIP (para pular registros).
+- A paginação do álbum pode ser combinado com a string ORDER, veja exemplo abaixo
+````
+GET: localhost:3000/api/v1/album/?album=Sertanejo&&limit=3&skip=0&order=asc
+````
 
 ## ::SEGURANÇA
 - Foi implementado no projeto a gravação da senha do usuário no banco de dados por hash
@@ -92,12 +114,20 @@ GET : localhost:3000/api/v1/artista/?artista=Mike&order=asc
 - Token com expiração de 5 minutos
 - o pre-signed URL das imagens da capa tem expiração de 5 minutos
 - Utilizado CORS Access-Control-Allow-Origin para controle URL de origem.
-- 
+### OBSERVAÇÃO
+- O controle de da origem esta liberado para todas origens, no entanto para ativa-lo, basta substituir o * pelo URL de origem, veja abaixo:
+- file app.js
+````
+    app.use((req,res,next) =>{
+    res.header('Access-Control-Allow-Origin','*')
+    app.use(cors())
+    next()
+````
 
 ## ::BANCO DE DADOS
--MySQL ou mariaDB
--Database: albumdb
--Tabela: usuario
--Tabela: artista 1->N album
--Carga inicial da base de dados clique aqui
+- MySQL ou mariaDB
+- Database: albumdb
+- Tabela: usuario
+- Tabela: artista 1->N album
+- Carga inicial da base de dados clique aqui
 
