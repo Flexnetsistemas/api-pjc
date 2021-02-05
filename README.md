@@ -24,7 +24,7 @@
   ````
   - MySql ou mariaDB
   - Carga inicial da base de dados em https://github.com/Flexnetsistemas/api-pjc/tree/master/script
-  #### Minio nome do Bucket:  zx-bucket
+  #### - Minio nome do Bucket:  zx-bucket
   
 ### Docker
 - Infelizmente de última hora não consegui executar o Docker no windwos 10 home, pois o mesmo não habilita os processo de Hyper-V para esta versão, sendo assim, não consegui gerar o projeto "dockerizado"
