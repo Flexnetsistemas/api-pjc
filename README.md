@@ -1,7 +1,9 @@
 # Processo seletivo n. 01/2020 PJC/MT
 # Projeto Prático Implementação BACK-END
 
--Candidato: Ricardo de Assis  email: rdassis@gmail.com
+- Autor:
+Nome:  Ricardo de Assis
+email: rdassis@gmail.com
 
 # Procedimento para testes do projeto.
 - Os testes poderão ser realizados utilizando os programas de comunicação REST Postman ou Insominia, ou qualquer sistema semenhante.
