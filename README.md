@@ -1,9 +1,11 @@
 # Processo seletivo n. 01/2020 PJC/MT
-# Projeto Prático
-# Implementação BACK-END
+# Projeto Prático Implementação BACK-END
+
+-Candidato: Ricardo de Assis  email: rdassis@gmail.com
 
 # Procedimento para testes do projeto.
 - Os testes poderão ser realizados utilizando os programas de comunicação REST Postman ou Insominia, ou qualquer sistema semenhante.
+- Nos teste de POST e PUT usar no body Content-Type : application/json
 
 # 1º Passo
 - Fazer o login para receber o token
@@ -20,13 +22,11 @@ POST: localhost:3000/api/v1/usuario/login
 Cadastro de Usuário:
 ```sh
 POST: localhost:3000/api/v1/usuario
-Content-Type : application/json
 {
    "email": "seu-emailm@gmail.com",
     "senha": "123456"	
 }
 ```
-
 # 2º Passo
 - De posse do token com expiração em 5 minutos fazer os testes descrito abaixo:
 
@@ -34,7 +34,6 @@ Content-Type : application/json
 ```sh
 Content-Type : application/json
 POST: localhost:3000/api/v1/artista/cadastro
-Content-Type : application/json
 {
     "nome": "Leonardo"
 }
@@ -42,7 +41,6 @@ Content-Type : application/json
 # ::CADASTRO DE ALBUM / multpart-form
 ```sh
 POST: localhost:3000/api/v1/album
-Content-Type : application/json
 {
 	"id_artista": 9,
 	"nomeAlbum": "Love Goes",
@@ -52,7 +50,6 @@ Content-Type : application/json
 # ::ALTERAÇÃO DO NOME ARTISTA
 ```sh
 PUT : localhost:3000/api/v1/artista
-Content-Type : application/json
 {
 	"id_artista": 9,
 	"nome": "Madona"
@@ -61,25 +58,37 @@ Content-Type : application/json
 # ::ALTERAÇÃO DE ALBUM
 ```sh
 PUT: localhost:3000/api/v1/album
-Content-Type : application/json
 {
     "id_album" : 4,  
     "fk_artista": 6,
     "nomeAlbum": "Dance and Dance"
 	}
 ````
-# ::Consultas
+# ::CONSULTAS
 - As consultas para pesquisa podem ser aplicados tando para o álbum como para o artisa.
 - É possível utilizar os parâmetros na URL (querystring) para personalizar a consulta. Veja nos exemplos abaixo:
 ```sh
 GET : localhost:3000/api/v1/artista/?artista=Guns
 GET : localhost:3000/api/v1/album/?album=use your
 ````
-# ::Ordenação
+# ::ORDENAÇÃO
 - A ordenação do álbum consulta pode ser combinada com a querystring ORDER, com asc ou desc. Veja exemplos abaixo:
 ```sh
 GET : localhost:3000/api/v1/artista/?artista=Mike&order=desc
 GET : localhost:3000/api/v1/artista/?artista=Mike&order=asc
 ````
-# ::Paginação
+# ::PAGINAÇÃO
 - Utilize os parâmetros limit (para limitar a quantidade) e skip (para pular registros).
+
+# ::SEGURANÇA
+- Foi implementado no projeto a gravação da senha do usuário no banco de dados por hash
+- Todas as rotas estão sendo validadas com token via middleware jwt.login.js gerado com JWT
+- Utilizado CORS Access-Control-Allow-Origin para controle URL de origem.
+
+# ::BANCO DE DADOS
+-MySQL ou mariaDB
+-Database: albumdb
+-Tabela: usuario
+-Tabela: artista 1->N album
+-Carga inicial da base de dados clique aqui
+
