@@ -23,6 +23,7 @@
   }
   ````
   - MySql ou mariaDB
+  - Carga inicial da base de dados em https://github.com/Flexnetsistemas/api-pjc/tree/master/script
 
 ## 1º Passo
 - Cadastro de Usuário:
@@ -130,5 +131,5 @@ GET: localhost:3000/api/v1/album/?album=Sertanejo&&limit=3&skip=0&order=asc
 - Database: albumdb
 - Tabela: usuario
 - Tabela: artista 1->N album
-- Carga inicial da base de dados em https://github.com/Flexnetsistemas/api-pjc/tree/master/script
+
 
