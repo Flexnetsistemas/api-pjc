@@ -14,7 +14,7 @@ app.use("/api/v1/album",   routerAlbum)
 
 
 app.use('/',(req,res) => {
-    res.send('Response in Server !')
+    res.send({erro: 'Rota não localizada'})
 })
 
 module.exports = app;

@@ -3,9 +3,11 @@ const router  = express.Router()
 const mysql   = require("../mysql.config").pool
 const minioClient      = require("../minio")
 const { presignedUrl } = require('../minio');
+const jwtLogin         = require('../jwt-login');
 
-router.get('/', (req, res, next) => {
 
+
+router.get('/', jwtLogin, (req, res, next) => {
   mysql.getConnection((error, conn) => {
   if (error) {
     return res.status(500).send({ erro: error })
@@ -39,24 +41,22 @@ router.get('/', (req, res, next) => {
        let imgLink = ''; 
    
        return new Promise((resolve, reject) => {
-         getimageURL(img, (err, data) => {
+         getimageURL(img, (err, link) => {
          if (err) {  
             reject(respondClient(""))
           }else{
-            resolve(respondClient(data))
+            resolve(respondClient(link))
           }
           })
         })  
               
-         function respondClient(data){
-           imgLink = data
-           console.log("respondeu ao ocliente")
-         const artistas = result.map(art => {
+       function respondClient(link){
+        const artistas = result.map(art => {
          return {
              id_artista: art.id_artista,  
              nome      : art.nome,
              album     : art.nomeAlbum,
-             capa_link : imgLink
+             capa_link : link
              }
             })
 /*        const  albuns =  result.map(art => {
@@ -72,7 +72,7 @@ router.get('/', (req, res, next) => {
      })
  })
 
-router.post("/cadastro",(req,res,next) => {
+router.post("/cadastro",jwtLogin,(req,res,next) => {
   mysql.getConnection((error,conn) => {
     if (error) {
       return res.status(500).send({ erro: error })
@@ -94,7 +94,7 @@ router.post("/cadastro",(req,res,next) => {
   })
 })
 
-router.put("/",(req,res,next) => {
+router.put("/",jwtLogin,(req,res,next) => {
   mysql.getConnection((error,conn) => {
     if (error){
      return res.status(500).send({erro: error})

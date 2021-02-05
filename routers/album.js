@@ -5,6 +5,8 @@ const multer   = require("multer")
 const minioClient = require("../minio")
 const { presignedUrl } = require('../minio');
 const crypto   = require("crypto")
+const jwtLogin      = require("../jwt-login")
+var obj = ""
 
 
 var nameFile = ""
@@ -22,13 +24,13 @@ const upload = multer({storage})
 
 
 
-router.get('/', (req, res, next) => {
-
+router.get('/', jwtLogin, (req, res, next) => {
+ 
   mysql.getConnection((error, conn) => {
   if (error) {
     return res.status(500).send({ erro: error })
     }
-      let album = (!req.query.album) ? "%" : req.query.album+"%"
+      let album = (!req.query.album) ? "%" : req.query.album
 /*        if (req.query.limit || req.query.skip){
         let artista  = (!req.query.skip) ? 0 : req.query.skip
         limit = (!req.query.limit) ? 10 : req.query.limit
@@ -37,29 +39,30 @@ router.get('/', (req, res, next) => {
          */
      conn.query(`SELECT A.id_artista, A.nome, AL.nomeAlbum, AL.capa FROM album AL`+
                  ` INNER JOIN artista A ON A.id_artista = AL.fk_artista`+
-                 ` WHERE AL.nomeAlbum LIKE '`+album+`'`, 
+                 ` WHERE AL.nomeAlbum LIKE '%`+album+`%'`, 
       (error, result, field) => {
       conn.release()
       if (error) {
         return res.status(500).send({ erro: error });
       }    
-   
-       let img =  result.map(image => image.capa)  
-       let imgLink = ''; 
-   
+        if(result < 1){
+          res.status(404).send({message: "Nenhum registro encontrado"})
+        }
+       let img =  result.map(image => image.capa) 
+       
        return new Promise((resolve, reject) => {
-        getimageURL(img, (err, data) => {
-         if (err) {  
-            reject(respondClient(""))
-          }else{
-            resolve(respondClient(data))
-          }
-          })
-        })  
-              
-         function respondClient(data){
-           imgLink = data
-          const artistas = result.reduce(art => {
+        getimageURL(img, (err, link) => {
+        if (err) {  
+           reject(respondClient(""))
+         }else{
+           resolve(respondClient(link))
+         }
+         })
+       })  
+           
+                 
+     function respondClient(link){
+      const artistas = result.reduce(art => {
          return {
              id_artista: art.id_artista,  
              nome      : art.nome,
@@ -68,19 +71,20 @@ router.get('/', (req, res, next) => {
          const  albuns =  result.map(art => {
          return {
             album     : art.nomeAlbum,
-            capa_link : imgLink
+            capa_url  : link
             }
            }) 
            res.status(200).send({ Album: albuns , Artista: artistas})
-          }
-        })
+     
+        }
+      })
+    })  
    
-     })
  })
 
 
-router.post("/", upload.single('capa'), (req,res) => {
-
+router.post("/", upload.single('capa'), jwtLogin, (req,res) => {
+ 
   return new Promise((resolve, reject) => {
   uploadMinio('uploads/'+nameFile, (err) => {
    if (err) {  
@@ -109,7 +113,7 @@ router.post("/", upload.single('capa'), (req,res) => {
  })
 })
 
-router.put("/",(req,res,next) => {
+router.put("/", jwtLogin, (req,res,next) => {
   mysql.getConnection((error,conn) => {
     if (error){
      return res.status(500).send({erro: error})
@@ -141,17 +145,19 @@ async function uploadMinio(file,callback){
 }
 
 
-async function getimageURL(image,callback)
+async function getimageURL(image, callback)
 {
+  try{
+   var url = ""
 
-  try {
-    await minioClient.presignedUrl('GET','zx-bucket', image, 300)
-    callback()
-  } catch (error) {
-    console.log(error)
-    callback(error)
+   url = await minioClient.presignedUrl('GET','zx-bucket', image, 300)
+   console.log(url)
+   callback(url)
+   
+ } catch (error) {
+   callback(error)
     
-  }   
+}   
 
 }
 
