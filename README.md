@@ -10,6 +10,7 @@
 ## Pré Requisitos
 - Node.js
 #### Dependências:
+````
 "dependencies": {
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
@@ -20,21 +21,11 @@
     "multer": "^1.4.2",
     "mysql": "^2.18.1"
   }
+  ````
   - MySql ou mariaDB
 
 ## 1º Passo
-- Fazer o login para receber o token, expira em 5 minutos. 
-Exemplo:
-```sh
-POST: localhost:3000/api/v1/usuario/login
-{
-   "email" : "rdassis@gmail.com",  
-   "senha" : "123456"
-}
-````
-- Também poderá ser cadastrado um novo usuário, usando a URI abaixo, para posterior login (Passo 1º) e retornar do token.
-
-Cadastro de Usuário:
+- Cadastro de Usuário:
 ```sh
 POST: localhost:3000/api/v1/usuario
 {
@@ -43,7 +34,17 @@ POST: localhost:3000/api/v1/usuario
 }
 ```
 ## 2º Passo
-- De posse do token com expiração em 5 minutos fazer os testes descrito abaixo:
+- Fazer o login para receber o token, expira em 5 minutos. 
+Exemplo:
+```sh
+POST: localhost:3000/api/v1/usuario/login
+{
+   "email" : "seu-emailm@gmail.com",  
+   "senha" : "123456"
+}
+````
+## 3º Passo
+- De posse do token com fazer os testes descritos abaixo:
 - O Token deve ser inserido na opção de Authorization Bearer Token
 
 ## ::CADASTRO DE ARTISTA
@@ -83,7 +84,7 @@ PUT: localhost:3000/api/v1/album
     "id_album" : 3,  
     "fk_artista": 2,
     "nomeAlbum": "Dance and Dance"
-	}
+}
 ````
 ## ::CONSULTAS
 - As consultas para pesquisa podem ser aplicados tando para o álbum como para o artista.
@@ -114,8 +115,8 @@ GET: localhost:3000/api/v1/album/?album=Sertanejo&&limit=3&skip=0&order=asc
 - Token com expiração de 5 minutos
 - o pre-signed URL das imagens da capa tem expiração de 5 minutos
 - Utilizado CORS Access-Control-Allow-Origin para controle URL de origem.
-### OBSERVAÇÃO
-- O controle de da origem esta liberado para todas origens, no entanto para ativa-lo, basta substituir o * pelo URL de origem, veja abaixo:
+#### OBSERVAÇÃO
+- O controle de origem esta liberado para todas origens, no entanto para ativa-lo, basta substituir o * pelo URL de origem, veja abaixo:
 - file app.js
 ````
     app.use((req,res,next) =>{
