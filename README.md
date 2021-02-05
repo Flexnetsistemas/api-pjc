@@ -11,8 +11,8 @@ Exemplo:
 ```sh
 POST: localhost:3000/api/v1/usuario/login
 {
- "email" : "rdassis@gmail.com",  
-  "senha" : "123456"
+   "email" : "rdassis@gmail.com",  
+   "senha" : "123456"
 }
 ````
 - Também poderá ser cadastrado um novo usuário, usando a URI abaixo, para posterior login (Passo 1º) e retorno do token.
@@ -20,9 +20,10 @@ POST: localhost:3000/api/v1/usuario/login
 Cadastro de Usuário:
 ```sh
 POST: localhost:3000/api/v1/usuario
+Content-Type : application/json
 {
-	"email": "seu-emailfm@gmail.com",
-	"senha": "123456"	
+   "email": "seu-emailm@gmail.com",
+    "senha": "123456"	
 }
 ```
 
@@ -31,15 +32,17 @@ POST: localhost:3000/api/v1/usuario
 
 # ::CADASTRO DE ARTISTA
 ```sh
+Content-Type : application/json
 POST: localhost:3000/api/v1/artista/cadastro
+Content-Type : application/json
 {
-	"nome": "Leonardo"
-
+    "nome": "Leonardo"
 }
 ```
 # ::CADASTRO DE ALBUM / multpart-form
 ```sh
 POST: localhost:3000/api/v1/album
+Content-Type : application/json
 {
 	"id_artista": 9,
 	"nomeAlbum": "Love Goes",
@@ -49,6 +52,7 @@ POST: localhost:3000/api/v1/album
 # ::ALTERAÇÃO DO NOME ARTISTA
 ```sh
 PUT : localhost:3000/api/v1/artista
+Content-Type : application/json
 {
 	"id_artista": 9,
 	"nome": "Madona"
@@ -57,9 +61,25 @@ PUT : localhost:3000/api/v1/artista
 # ::ALTERAÇÃO DE ALBUM
 ```sh
 PUT: localhost:3000/api/v1/album
+Content-Type : application/json
 {
-        "id_album" : 4,  
-	"fk_artista": 6,
-	"nomeAlbum": "Dance and Dance"
-}
+    "id_album" : 4,  
+    "fk_artista": 6,
+    "nomeAlbum": "Dance and Dance"
+	}
 ````
+# ::Consultas
+- As consultas para pesquisa podem ser aplicados tando para o álbum como para o artisa.
+- É possível utilizar os parâmetros na URL (querystring) para personalizar a consulta. Veja nos exemplos abaixo:
+```sh
+GET : localhost:3000/api/v1/artista/?artista=Guns
+GET : localhost:3000/api/v1/album/?album=use your
+````
+# ::Ordenação
+- A ordenação do álbum consulta pode ser combinada com a querystring ORDER, com asc ou desc. Veja exemplos abaixo:
+```sh
+GET : localhost:3000/api/v1/artista/?artista=Mike&order=desc
+GET : localhost:3000/api/v1/artista/?artista=Mike&order=asc
+````
+# ::Paginação
+- Utilize os parâmetros limit (para limitar a quantidade) e skip (para pular registros).
