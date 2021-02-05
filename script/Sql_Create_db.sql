@@ -44,31 +44,8 @@ INSERT INTO album(fk_artista,nomeAlbum,capa) VALUES(2,"Where'd You Go","");
 INSERT INTO album(fk_artista,nomeAlbum,capa) VALUES(3,"Bem Sertanejo","");
 INSERT INTO album(fk_artista,nomeAlbum,capa) VALUES(3,"Bem Sertanejo - O Show (AoVivo)","");
 INSERT INTO album(fk_artista,nomeAlbum,capa) VALUES(3,"Bem Sertanejo - (1ª Temporada) - EP","");
-INSERT INTO album(fk_artista,nomeAlbum,capa) VALUES(3,"Where'd You Go","");
+
 
 INSERT INTO album(fk_artista,nomeAlbum,capa) VALUES(4,"Use Your IIIlusion I","");
 INSERT INTO album(fk_artista,nomeAlbum,capa) VALUES(4,"Use Your IIIlusion II","");
 INSERT INTO album(fk_artista,nomeAlbum,capa) VALUES(4,"Greatest Hits","");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
