@@ -40,10 +40,15 @@ POST: localhost:3000/api/v1/artista/cadastro
 }
 ```
 ## ::CADASTRO DE ÁLBUM / multpart-form
+- É necessário informar a foreign key do artista, para listar os artistas use:
+````
+GET : localhost:3000/api/v1/artista/
+````
+- De posse do id_artista, faça o cadastro conforme exemplo abaixo: 
 ```sh
 POST: localhost:3000/api/v1/album
 {
-	"id_artista": 9,
+	"fk_artista": 9,
 	"nomeAlbum": "Love Goes",
 	"capa" : (choose file)
 }
