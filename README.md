@@ -24,6 +24,7 @@
   ````
   - MySql ou mariaDB
   - Carga inicial da base de dados em https://github.com/Flexnetsistemas/api-pjc/tree/master/script
+  #### Minio nome do Bucket:  zx-bucket
 
 ## 1º Passo
 - Cadastro de Usuário:
@@ -132,5 +133,28 @@ GET: localhost:3000/api/v1/album/?album=Sertanejo&&limit=3&skip=0&order=asc
 - Database: albumdb
 - Tabela: usuario
 - Tabela: artista 1->N album
+
+## Features
+- [x] Cadastro de usuário
+- [x] Cadastro de Artista
+- [x] Alteração de Álbum
+- [x] Alteração de Artista
+- [x] Consulta pelo nome Artista
+- [x] Consutla pelo nome Álbum
+- [x] Páginação do Álbum
+- [x] Ordenação de Artista e Álbum
+- [x] Autenticação JWT 5 minutos
+- [x] CORS, controle de URL de origem 
+- [x] Upload da imagem para Storage Minio
+- [ ] Link da imagem pré assinada expiração em 5 minutos
+
+#### Durante o desenvolvimento do projeto foi implentado presignedUrl que retorna os link das imagens, obtive os links e consegui exibi-los em console.log, porém não consegui fazer as tratativas das promisses desses links e devolve-las ao client. Diante disso, achei mais prudente não informar o link da imagem para não apresentar informações inconsistentes.
+
+#### Deixei essa parte do código comentado e priorizei a seguranças nas informações enviadas ao client.
+
+![album](image_link.png)
+
+- Files album.js e artista.js
+
 
 
