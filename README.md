@@ -4,8 +4,8 @@
 - Autor: Ricardo de Assis  &nbsp; email: rdassis@gmail.com
 
 ## Procedimento para testes do projeto.
-- Os testes poderão ser realizados utilizando os programas de comunicação REST Postman ou Insominia, ou qualquer sistema semenhante.
-- Nos teste de POST e PUT usar Content-Type : application/json.
+- Os testes poderão ser realizados utilizando os programas de comunicação REST Postman, Insominia ou qualquer sistema equivalente.
+- No teste de POST e PUT usar Content-Type : application/json no Header.
 
 ## 1º Passo
 - Fazer o login para receber o token, expira em 5 minutos. 
@@ -17,7 +17,7 @@ POST: localhost:3000/api/v1/usuario/login
    "senha" : "123456"
 }
 ````
-- Também poderá ser cadastrado um novo usuário, usando a URI abaixo, para posterior login (Passo 1º) e retorno do token.
+- Também poderá ser cadastrado um novo usuário, usando a URI abaixo, para posterior login (Passo 1º) e retornar do token.
 
 Cadastro de Usuário:
 ```sh
@@ -66,7 +66,7 @@ PUT: localhost:3000/api/v1/album
 	}
 ````
 ## ::CONSULTAS
-- As consultas para pesquisa podem ser aplicados tando para o álbum como para o artisa.
+- As consultas para pesquisa podem ser aplicados tando para o álbum como para o artista.
 - É possível utilizar os parâmetros na URL (querystring) para personalizar a consulta. Veja nos exemplos abaixo:
 ```sh
 GET : localhost:3000/api/v1/artista/?artista=Guns
