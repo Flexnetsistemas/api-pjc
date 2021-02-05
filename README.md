@@ -47,6 +47,7 @@ POST: localhost:3000/api/v1/usuario/login
 ## 3º Passo
 - De posse do token com fazer os testes descritos abaixo:
 - O Token deve ser inserido na opção de Authorization Bearer Token
+![Insominia](token.png)
 
 ## ::CADASTRO DE ARTISTA
 ```sh
