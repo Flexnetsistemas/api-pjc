@@ -2,15 +2,15 @@
 # Projeto Prático Implementação BACK-END
 
 - Autor:
-Nome:  Ricardo de Assis
-email: rdassis@gmail.com
+Nome:  Ricardo de Assis .
+email: rdassis@gmail.com .
 
 # Procedimento para testes do projeto.
 - Os testes poderão ser realizados utilizando os programas de comunicação REST Postman ou Insominia, ou qualquer sistema semenhante.
-- Nos teste de POST e PUT usar no body Content-Type : application/json
+- Nos teste de POST e PUT usar no body Content-Type : application/json.
 
 # 1º Passo
-- Fazer o login para receber o token
+- Fazer o login para receber o token.
 Exemplo:
 ```sh
 POST: localhost:3000/api/v1/usuario/login
