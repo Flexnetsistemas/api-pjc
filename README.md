@@ -1,13 +1,11 @@
 # Processo seletivo n. 01/2020 PJC/MT
 # Projeto Prático Implementação BACK-END
 
-- Autor:
-Nome:  Ricardo de Assis .
-email: rdassis@gmail.com .
+- Autor: Ricardo de Assis  email: rdassis@gmail.com
 
 # Procedimento para testes do projeto.
 - Os testes poderão ser realizados utilizando os programas de comunicação REST Postman ou Insominia, ou qualquer sistema semenhante.
-- Nos teste de POST e PUT usar no body Content-Type : application/json.
+- Nos teste de POST e PUT usar Content-Type : application/json.
 
 # 1º Passo
 - Fazer o login para receber o token.
