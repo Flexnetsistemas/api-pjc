@@ -8,7 +8,7 @@
 - Nos teste de POST e PUT usar Content-Type : application/json.
 
 # 1º Passo
-- Fazer o login para receber o token.
+- Fazer o login para receber o token, expira em 5 minutos. 
 Exemplo:
 ```sh
 POST: localhost:3000/api/v1/usuario/login
@@ -83,7 +83,10 @@ GET : localhost:3000/api/v1/artista/?artista=Mike&order=asc
 # ::SEGURANÇA
 - Foi implementado no projeto a gravação da senha do usuário no banco de dados por hash
 - Todas as rotas estão sendo validadas com token via middleware jwt.login.js gerado com JWT
+- Token com expiração de 5 minutos
+- o pre-signed URL tem expiração de 5 minutos
 - Utilizado CORS Access-Control-Allow-Origin para controle URL de origem.
+- 
 
 # ::BANCO DE DADOS
 -MySQL ou mariaDB
