@@ -45,7 +45,7 @@ router.get('/', jwtLogin, (req, res, next) => {
               id_artista: art.id_artista,  
               nome      : art.nome,
               album     : art.nomeAlbum,
-              capa_link : link
+              capa_link : ""// link
               }
              })
 
@@ -105,15 +105,13 @@ router.put("/",jwtLogin,(req,res,next) => {
 
 async function getimageURL(image,callback)
 {
-
   try {
     await minioClient.presignedUrl('GET','zx-bucket', image, 300);
     callback();
   } catch (error) {
     callback(error);
-    
-  }   
-
+   
+  } 
 }
 
 
