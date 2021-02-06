@@ -7,7 +7,7 @@
 - Os testes poderão ser realizados utilizando os programas de comunicação REST Postman, Insominia ou qualquer sistema equivalente.
 - No teste de POST e PUT usar Content-Type : application/json no Header.
 
-## Pré Requisitos
+### Pré Requisitos
 - Node.js
 #### Dependências:
 ````
@@ -24,9 +24,16 @@
   ````
   - MySql ou mariaDB
   - Carga inicial da base de dados em https://github.com/Flexnetsistemas/api-pjc/tree/master/script
-  #### Minio nome do Bucket:  zx-bucket
+  #### - Minio nome do Bucket:  zx-bucket
+  
+### Docker
+- Infelizmente de última hora não consegui executar o Docker no windwos 10 home, pois o mesmo não habilita os processo de Hyper-V para esta versão, sendo assim, não consegui gerar o projeto "dockerizado"
 
-## 1º Passo
+### Execução
+- No diretório do projeto digite /> npm start ou />node server.js
+  
+
+### 1º Passo
 - Cadastro de Usuário:
 ```sh
 POST: localhost:3000/api/v1/usuario
@@ -35,7 +42,7 @@ POST: localhost:3000/api/v1/usuario
    "senha": "123456"	
 }
 ```
-## 2º Passo
+### 2º Passo
 - Fazer o login para receber o token, expira em 5 minutos. 
 Exemplo:
 ```sh
@@ -45,12 +52,12 @@ POST: localhost:3000/api/v1/usuario/login
    "senha" : "123456"
 }
 ````
-## 3º Passo
+### 3º Passo
 - De posse do token com fazer os testes descritos abaixo:
 - O Token deve ser inserido na opção de Authorization Bearer Token
 ![Insominia](token.png)
 
-## ::CADASTRO DE ARTISTA
+### ::CADASTRO DE ARTISTA
 ```sh
 Content-Type : application/json
 POST: localhost:3000/api/v1/artista/cadastro
@@ -58,7 +65,7 @@ POST: localhost:3000/api/v1/artista/cadastro
     "nome": "Leonardo"
 }
 ```
-## ::CADASTRO DE ÁLBUM / multpart-form
+### ::CADASTRO DE ÁLBUM / multpart-form
 - É necessário informar a foreign key do artista, para listar os artistas use:
 ````
 GET : localhost:3000/api/v1/artista/
@@ -72,7 +79,7 @@ POST: localhost:3000/api/v1/album
 	"capa" : (choose file)
 }
 ```
-## ::ALTERAÇÃO DO NOME ARTISTA
+### ::ALTERAÇÃO DO NOME ARTISTA
 ```sh
 PUT : localhost:3000/api/v1/artista
 {
@@ -80,7 +87,7 @@ PUT : localhost:3000/api/v1/artista
 	"nome": "Madona"
 }
 ````
-## ::ALTERAÇÃO DE ÁLBUM
+### ::ALTERAÇÃO DE ÁLBUM
 ```sh
 PUT: localhost:3000/api/v1/album
 {
@@ -89,14 +96,14 @@ PUT: localhost:3000/api/v1/album
     "nomeAlbum": "Dance and Dance"
 }
 ````
-## ::CONSULTAS
+### ::CONSULTAS
 - As consultas para pesquisa podem ser aplicados tando para o álbum como para o artista.
 - É possível utilizar os parâmetros na URL (querystring) para personalizar a consulta. Veja nos exemplos abaixo:
 ```sh
 GET : localhost:3000/api/v1/artista/?artista=Guns
 GET : localhost:3000/api/v1/album/?album=use your
 ````
-## ::ORDENAÇÃO
+### ::ORDENAÇÃO
 - A ordenação dos artistas pode ser combinada com a querystring ORDER, com asc ou desc. Veja exemplos abaixo:
 ```sh
 GET : localhost:3000/api/v1/artista/?artista=mi&order=asc
@@ -105,14 +112,14 @@ GET : localhost:3000/api/v1/artista/?artista=mi&order=asc
 ````
 GET: localhost:3000/api/v1/album/?album=Sertanejo&order=desc
 ````
-## ::PAGINAÇÃO
+### ::PAGINAÇÃO
 - Utilize os parâmetros LIMIT (para limitar a quantidade) e SKIP (para pular registros).
 - A paginação do álbum pode ser combinado com a string ORDER, veja exemplo abaixo
 ````
 GET: localhost:3000/api/v1/album/?album=Sertanejo&&limit=3&skip=0&order=asc
 ````
 
-## ::SEGURANÇA
+### ::SEGURANÇA
 - Foi implementado no projeto a gravação da senha do usuário no banco de dados por hash
 - Todas as rotas estão sendo validadas com token via middleware jwt.login.js gerado com JWT
 - Token com expiração de 5 minutos
@@ -128,13 +135,13 @@ GET: localhost:3000/api/v1/album/?album=Sertanejo&&limit=3&skip=0&order=asc
     next()
 ````
 
-## ::BANCO DE DADOS
+### ::BANCO DE DADOS
 - MySQL ou mariaDB
 - Database: albumdb
 - Tabela: usuario
 - Tabela: artista 1->N album
 
-## Features
+### Features
 - [x] Cadastro de usuário
 - [x] Cadastro de Artista
 - [x] Alteração de Álbum
